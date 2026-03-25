@@ -15,6 +15,9 @@ import Lingua_Skills_Certificate from "./Pdf's/Lingua_Skills_Certificate";
 import Visa_Hackathon from "./Pdf's/Visa_Hackathon";
 import VR_Sidhartha_Hackathon from "./Pdf's/VR_Sidhartha_Hackathon";
 import DTI_CERTIFICATE from "./Pdf's/DTI_CERTIFICATE";
+import MyJourney from "./pages/MyJourney";
+
+
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/my-journey" element={<MyJourney />} />
           <Route path="/Resume" element={<Resume />} />
           <Route path="/Azure" element={<Azure_Certificate />} />
           <Route path="/Oracle-Foundations-Associate" element={<Oracle_FA_Certificate />} />

@@ -11,9 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"
 
 export const Hero = () => {
-  const titles = ["AI & Full Stack Developer", "AI & Full Stack Developer"];
+  const titles = ["Full Stack Developer", "AI Powered Applications"];
   const animatedTitle = useTypewriter(titles, 80, 40, 2000);
   const [autoHover, setAutoHover] = useState(false);
 
@@ -47,7 +48,7 @@ export const Hero = () => {
                 </h2>
               </div>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                BTech 3rd Year,<br />
+                BTech Pre-final Year,<br />
                 Computer Science & Engineering,<br />
                 KL University
               </p>
@@ -72,8 +73,8 @@ export const Hero = () => {
                 <div className="flex-shrink-0  inline-flex rounded-lg overflow-hidden shadow-glow transform transition-all duration-[2000ms] animate-float">
                   {/* Download Resume */}
                   <a
-                    href="/SYED_ANAS_RESUME_3.2.0.pdf"
-                    download="SYED_ANAS_RESUME_3.2.0.pdf"
+                    href="/SYED_ANAS_RESUME_3_2_5.pdf"
+                    download="SYED_ANAS_RESUME_3_2_5.pdf"
                     className="flex items-center justify-center px-2 py-1 bg-foreground text-background hover:bg-blue-600 hover:text-white transition-colors rounded-l-lg"
                   >
                     <Download className="w-4 h-4" />
@@ -91,13 +92,14 @@ export const Hero = () => {
                 </div>
 
                 {/* Contact Button */}
-                <Button
-                  onClick={scrollToContact}
-                  className="bg-foreground px-3 py-1 sm:px-6 sm:py-5 text-black font-medium text-background hover:opacity-90 transition-all shadow-glow hover:scale-105 transform duration-300 hover:text-white"
+                <Link to="/my-journey"> <Button
+                  // onClick={() => navigate("/my-journey")}
+                  className="bg-foreground px-6 py-5 text-black font-medium hover:opacity-90 hover:text-white transition-all shadow-glow hover:scale-105 duration-300"
                 >
-                  Contact Me
+                  My Journey
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
+                </Link>
               </div>
             </div>
 
@@ -110,7 +112,7 @@ export const Hero = () => {
               <a href="https://www.linkedin.com/in/-syedanas/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center hover:scale-110 transform transition duration-300">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="mailto:myportfolio44455@gmail.com" className="w-10 h-10 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center hover:scale-110 transform transition duration-300">
+              <a href="mailto:portfolio.syedanas@gmail.com" className="w-10 h-10 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center hover:scale-110 transform transition duration-300">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
@@ -123,7 +125,7 @@ export const Hero = () => {
               <div className="relative bg-card rounded-3xl p-2 border border-border shadow-glow hover:shadow-elegant transition-all duration-500 hover:scale-105">
                 <img
                   src={new URL("@/assets/SYED_ANAS_PROFESSIONAL_IMAGE.png", import.meta.url).href}
-                  alt="Syed Anas - AI & Full Stack Developer"
+                  alt="Syed Anas - Full Stack Developer & AI Powered Applications"
                   className="w-full h-full object-cover rounded-2xl"
                 />
               </div>

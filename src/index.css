@@ -14,7 +14,7 @@ All colors MUST be HSL.
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
 
-    --popover: 0 0% 100%;
+    --popover: 0 0% 100%; 
     --popover-foreground: 222 47% 11%;
 
     --primary: 217 91% 60%;
@@ -108,8 +108,9 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
-  }
+  @apply text-foreground;
+  background: var(--gradient-hero);
+}
 }
 
 @layer utilities {

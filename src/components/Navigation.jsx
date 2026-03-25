@@ -4,10 +4,12 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Navigation = () => {
   const activeSection = useActiveSection();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -23,6 +25,7 @@ export const Navigation = () => {
     { id: "projects", icon: Folder, label: "Projects" },
     { id: "skills", icon: Code, label: "Skills & Certifications" },
     { id: "contact", icon: Mail, label: "Contact" },
+    { id: "journey", icon: Mail, label: "My Journey", isPage: true },
   ];
 
   return (
@@ -40,7 +43,14 @@ export const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => {
+                    if (item.isPage) {
+                      navigate("/my-journey");
+                      setOpen(false);
+                    } else {
+                      scrollToSection(item.id);
+                    }
+                  }}
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 text-left",
                     activeSection === item.id
@@ -66,7 +76,14 @@ export const Navigation = () => {
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
+              onClick={() => {
+                if (item.isPage) {
+                  navigate("/my-journey");
+                  setOpen(false);
+                } else {
+                  scrollToSection(item.id);
+                }
+              }}
               className={cn(
                 "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300 whitespace-nowrap",
                 activeSection === item.id

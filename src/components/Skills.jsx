@@ -49,27 +49,32 @@ export const Skills = () => {
     {
       title: "Programming",
       icon: Code2,
-      skills: ["C", "Java", "JavaScript"],
+      skills: ["Java", "SQL", "C"],
     },
     {
-      title: "Web Development",
+      title: "Frontend Technologies",
       icon: Globe,
-      skills: ["HTML", "CSS", "React.js", "Express.js", "Node.js"],
+      skills: ["HTML5", "CSS3", "TailwindCSS", "JavaScript", "React.js"],
     },
     {
-      title: "Core CS",
-      icon: BookOpen,
-      skills: ["DSA", "OOPS", "DBMS"],
-    },
-    {
-      title: "Tools",
-      icon: Wrench,
-      skills: ["VS Code", "Git", "Eclipse", "Postman"],
+      title: "Backend & Systems",
+      icon: Globe,
+      skills: ["Express.js", "Node.js", "SpringBoot", "Auth(JWT)", "RESTful APIs"],
     },
     {
       title: "Database",
       icon: Database,
-      skills: ["MySQL", "MongoDB"],
+      skills: ["PostgreSQL", "MySQL", "MongoDB"],
+    },
+    {
+      title: "Core CS",
+      icon: BookOpen,
+      skills: ["DSA", "OOP", "DBMS"],
+    },
+    {
+      title: "Tools",
+      icon: Wrench,
+      skills: ["Git", "Github", "VS Code", "Eclipse", "Postman"],
     },
     {
       title: "Soft Skills",
@@ -188,7 +193,7 @@ export const Skills = () => {
         </div>
 
         <div
-          id="certifications"
+          id="hackathons"
           ref={hacksRef}
           className={`mt-12 sm:mt-16 transition-all duration-700 ${hacksVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
@@ -238,7 +243,7 @@ export const Skills = () => {
 
 
         <div
-          id="certifications"
+          id="internships"
           ref={internsRef}
           className={`mt-12 sm:mt-16 transition-all duration-700 ${internsvisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}

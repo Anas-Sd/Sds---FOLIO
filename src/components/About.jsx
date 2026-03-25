@@ -33,10 +33,9 @@ export const About = () => {
             </h3>
 
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-6">
-              I am an aspiring Software Engineer with a strong focus on full-stack
-              development and cloud-native application design. I enjoy building
-              scalable, user-centric products and translating complex ideas into
-              clean, efficient, and maintainable code.
+              Software Engineer with hands-on experience in Data Structures & Algorithms and strong
+proficiency in building secure and scalable web applications. Experienced in designing RESTful APIs, optimizing
+backend performance, and developing secure, production-ready systems.
             </p>
 
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -79,10 +78,10 @@ export const About = () => {
                     Email
                   </h4>
                   <a
-                    href="mailto:myportfolio44455@gmail.com"
+                    href="mailto:portfolio.syedanas@gmail.com"
                     className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors break-all"
                   >
-                    myportfolio44455@gmail.com
+                    portfolio.syedanas@gmail.com
                   </a>
                 </div>
               </div>
@@ -177,6 +176,13 @@ export const About = () => {
             </h3>
 
             <ul className="space-y-3 sm:space-y-4">
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                   Solved <strong>130+</strong> problems on <a className="underline" href="https://leetcode.com/u/2300032619/" target="_blank" rel="noopener noreferrer"><strong>LeetCode</strong></a> to strengthen problem-solving skills and algorithmic thinking.
+                </p>
+              </li>
+
               <li className="flex gap-3">
                 <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                 <p className="text-xs sm:text-sm text-muted-foreground">

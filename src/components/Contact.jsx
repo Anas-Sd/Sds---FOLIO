@@ -12,6 +12,7 @@ export const Contact = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const { ref: profilesRef, isVisible: profilesVisible } = useScrollAnimation();
+  const [sending, setSending] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,7 +24,14 @@ export const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.name || !formData.email || !formData.title || !formData.message) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
     try {
+      setSending(true);
+
       await emailjs.send(
         "service_6jj3xgs",
         "template_09wwdhl",
@@ -42,6 +50,8 @@ export const Contact = () => {
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
       console.error("Email send error:", error);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -89,11 +99,10 @@ export const Contact = () => {
       <div className="max-w-7xl mx-auto">
         <div
           ref={titleRef}
-          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${
-            titleVisible
+          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${titleVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
-          }`}
+            }`}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Get In Touch
@@ -108,11 +117,10 @@ export const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           <Card
             ref={formRef}
-            className={`p-6 sm:p-8 transition-all duration-700 delay-100 ${
-              formVisible
+            className={`p-6 sm:p-8 transition-all duration-700 delay-100 ${formVisible
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-10"
-            }`}
+              }`}
           >
             <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
               Send a Message
@@ -194,19 +202,23 @@ export const Contact = () => {
                   className="text-sm sm:text-base"
                 />
               </div>
-              <Button type="submit" className="w-full" size="lg">
-                Send Message
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={sending}
+              >
+                {sending ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </Card>
 
           <div
             ref={profilesRef}
-            className={`space-y-4 sm:space-y-6 transition-all duration-700 delay-200 ${
-              profilesVisible
+            className={`space-y-4 sm:space-y-6 transition-all duration-700 delay-200 ${profilesVisible
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-10"
-            }`}
+              }`}
           >
             <Card className="p-6 sm:p-8">
               <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
@@ -270,7 +282,7 @@ export const Contact = () => {
                 size="lg"
                 className="w-full text-sm sm:text-base"
               >
-                <a href="mailto:myportfolio44455@gmail.com">Email Me Directly</a>
+                <a href="mailto:portfolio.syedanas@gmail.com">Email Me Directly</a>
               </Button>
             </Card>
           </div>
