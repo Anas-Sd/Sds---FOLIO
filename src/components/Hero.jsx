@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 
 export const Hero = () => {
-  const titles = ["Full Stack Developer", "AI Powered Applications"];
+  const titles = ["Software Engineer", "Full Stack Developer", "AI Powered Applications"];
   const animatedTitle = useTypewriter(titles, 80, 40, 2000);
   const [autoHover, setAutoHover] = useState(false);
 
