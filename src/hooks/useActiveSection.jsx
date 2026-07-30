@@ -4,36 +4,28 @@ export const useActiveSection = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const sections = ["home", "about", "projects", "skills", "contact"];
+    const sections = ["home", "about", "skills", "projects", "certifications", "contact"];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
-            setActiveSection(entry.target.id);
+    const handleScroll = () => {
+      const focalPoint = window.innerHeight * 0.4; // 40% from top of screen
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= focalPoint && rect.bottom >= 150) {
+            setActiveSection(sections[i]);
+            break;
           }
-        });
-      },
-      {
-        threshold: [0, 0.3, 0.5, 1],
-        rootMargin: "-20% 0px -20% 0px",
+        }
       }
-    );
+    };
 
-    sections.forEach((section) => {
-      const element = document.getElementById(section);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      sections.forEach((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
