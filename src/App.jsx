@@ -16,6 +16,7 @@ import Visa_Hackathon from "./Pdf's/Visa_Hackathon";
 import VR_Sidhartha_Hackathon from "./Pdf's/VR_Sidhartha_Hackathon";
 import DTI_CERTIFICATE from "./Pdf's/DTI_CERTIFICATE";
 import MyJourney from "./pages/MyJourney";
+import { ProjectCaseStudy } from "./pages/ProjectCaseStudy";
 
 
 
@@ -29,6 +30,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/project/:projectId" element={<ProjectCaseStudy />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/my-journey" element={<MyJourney />} />
           <Route path="/Resume" element={<Resume />} />

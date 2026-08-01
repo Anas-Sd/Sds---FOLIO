@@ -219,11 +219,19 @@ export const About = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* LeetCode & CodeChef */}
-            <div className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-all duration-300 group flex gap-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 group flex gap-4 relative overflow-hidden"
+            >
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-600/0 group-hover:via-zinc-400/60 to-transparent transition-all duration-500" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-500 mt-2 flex-shrink-0 group-hover:bg-white group-hover:scale-125 transition-all" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
-                  Solved <strong className="text-white font-medium">300+ problems</strong> on{" "}
+                  Solved <strong className="text-white font-semibold">300+ problems</strong> on{" "}
                   <a
                     className="underline text-white hover:text-zinc-300 inline-flex items-center gap-1"
                     href="https://leetcode.com/u/2300032619/"
@@ -232,7 +240,7 @@ export const About = () => {
                   >
                     LeetCode <ExternalLink className="w-3.5 h-3.5" />
                   </a>{" "}
-                  and <strong className="text-white font-medium">500+ problems</strong> on{" "}
+                  and <strong className="text-white font-semibold">500+ problems</strong> on{" "}
                   <a
                     className="underline text-white hover:text-zinc-300 inline-flex items-center gap-1"
                     href="https://www.codechef.com/users/kl_2300032619"
@@ -244,11 +252,19 @@ export const About = () => {
                   to strengthen problem-solving skills and algorithmic thinking.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* CIIE Recognition */}
-            <div className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-all duration-300 group flex gap-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 group flex gap-4 relative overflow-hidden"
+            >
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-600/0 group-hover:via-zinc-400/60 to-transparent transition-all duration-500" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-500 mt-2 flex-shrink-0 group-hover:bg-white group-hover:scale-125 transition-all" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
                   Recognized by the CIIE Director for core innovation in the{" "}
@@ -263,32 +279,48 @@ export const About = () => {
                   system under the University DTI initiative.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Japanese Language */}
-            <div className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-all duration-300 group flex gap-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 group flex gap-4 relative overflow-hidden"
+            >
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-600/0 group-hover:via-zinc-400/60 to-transparent transition-all duration-500" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-500 mt-2 flex-shrink-0 group-hover:bg-white group-hover:scale-125 transition-all" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
                   Self-taught and acquired proficiency in Japanese language
                   , showing strong self-motivation and adaptability.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Hackathons */}
-            <div className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-all duration-300 group flex gap-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 group flex gap-4 relative overflow-hidden"
+            >
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-600/0 group-hover:via-zinc-400/60 to-transparent transition-all duration-500" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-500 mt-2 flex-shrink-0 group-hover:bg-white group-hover:scale-125 transition-all" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
-                  Led development teams in <strong className="text-white font-medium">2 National-level Hackathons</strong>. Designed, built, and presented web services for:
+                  Led development teams in <strong className="text-white font-semibold">2 National-level Hackathons</strong>. Designed, built, and presented web services for:
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <Link
                     to="/Visa-Hackathon-Certificate"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:border-zinc-650 hover:bg-zinc-850 hover:border-zinc-600 transition-all flex items-center gap-1.5"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:border-zinc-600 hover:bg-zinc-800 transition-all flex items-center gap-1.5"
                   >
                     IIT - Madras <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
@@ -296,13 +328,13 @@ export const About = () => {
                     to="/VR-Siddhartha-Hackathon-Certificate"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:border-zinc-650 hover:bg-zinc-850 hover:border-zinc-600 transition-all flex items-center gap-1.5"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-white hover:border-zinc-600 hover:bg-zinc-800 transition-all flex items-center gap-1.5"
                   >
                     VR Siddhartha <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

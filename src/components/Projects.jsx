@@ -205,7 +205,7 @@ export const Projects = () => {
         {/* Section Header */}
         <div className="text-center mb-8">
           <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-500">
-            Featured Portfolio Works
+            Featured Works
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mt-1 tracking-tighter uppercase">
             Selected <span className="text-zinc-400">Projects</span>

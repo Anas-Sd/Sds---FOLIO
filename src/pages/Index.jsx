@@ -1,5 +1,7 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
@@ -10,56 +12,63 @@ import { Certifications } from "@/components/Certifications";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
-const StackedCard = ({ children, index, total, zoomInOnScroll = false, scaleRange, yRange, opacityRange, heightClass }) => {
+const StackedCard = ({ children, index, total, heightClass }) => {
   const containerRef = useRef(null);
-  const [isDesktop, setIsDesktop] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // Track entry progress (as card moves from bottom of screen into view)
+  const { scrollYProgress: entryProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "start start"],
+  });
 
-  const { scrollYProgress } = useScroll({
+  // Track exit progress (as card gets covered by next card)
+  const { scrollYProgress: exitProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
+  const isFirst = index === 0;
   const isLast = index === total - 1;
 
-  // Custom scale, opacity, and y behavior based on props or index
-  const defaultScale = zoomInOnScroll ? [1, 1.18] : [1, isLast ? 1 : 0.93];
-  const defaultY = zoomInOnScroll ? [0, -120] : [0, isLast ? 0 : -40];
-  const defaultOpacity = zoomInOnScroll ? [1, 0.25] : [1, isLast ? 1 : 0.5];
+  // Smooth entry physics (scale up, slide up, fade in)
+  const entryScale = useTransform(entryProgress, [0, 1], [0.92, 1]);
+  const entryOpacity = useTransform(entryProgress, [0, 0.6, 1], [0.2, 0.85, 1]);
+  const entryY = useTransform(entryProgress, [0, 1], [60, 0]);
 
-  const scale = useTransform(scrollYProgress, [0, 1], scaleRange || defaultScale);
-  const opacity = useTransform(scrollYProgress, [0, 1], opacityRange || defaultOpacity);
-  const y = useTransform(scrollYProgress, [0, 1], yRange || defaultY);
+  // Smooth exit physics (scale down slightly, fade out)
+  const exitScale = useTransform(exitProgress, [0, 1], [1, isLast ? 1 : 0.94]);
+  const exitOpacity = useTransform(exitProgress, [0, 1], [1, isLast ? 1 : 0.4]);
+
+  // Use entry transforms for incoming sections, exit transforms for active/outgoing
+  const scale = isFirst ? exitScale : entryScale;
+  const opacity = isFirst ? exitOpacity : entryOpacity;
+  const y = isFirst ? 0 : entryY;
 
   return (
     <div
       ref={containerRef}
       className={cn("relative w-full flex flex-col", heightClass || "min-h-screen")}
-      style={{
-        zIndex: index + 1,
-      }}
+      style={{ zIndex: index + 1 }}
     >
       <motion.div
         style={{
-          scale: isDesktop ? scale : 1,
-          opacity: isDesktop ? opacity : 1,
-          y: isDesktop ? y : 0,
+          scale,
+          opacity,
+          y,
         }}
         className={cn(
-          "w-full bg-[#050505] border-t border-zinc-900 shadow-[0_-20px_40px_rgba(0,0,0,0.6)] md:shadow-[0_-30px_60px_rgba(0,0,0,0.9)] flex flex-col justify-center",
-          "relative md:sticky md:top-0",
-          heightClass ? "h-screen overflow-hidden" : (zoomInOnScroll ? "h-screen overflow-hidden" : "min-h-screen"),
+          "w-full bg-[#050505] border-t border-zinc-800/80 shadow-[0_-25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-center",
+          "relative md:sticky md:top-0 transition-shadow duration-500",
+          heightClass ? "h-screen overflow-hidden" : "min-h-screen",
           index > 0 && "rounded-t-[2rem] md:rounded-t-[3.5rem]"
         )}
       >
+        {index > 0 && (
+          <motion.div
+            style={{ opacity: entryProgress }}
+            className="absolute top-0 inset-x-8 sm:inset-x-24 h-[1px] bg-gradient-to-r from-transparent via-zinc-400/60 to-transparent pointer-events-none z-20 shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+          />
+        )}
         <div className="w-full h-full flex flex-col justify-center">
           {children}
         </div>
@@ -70,6 +79,21 @@ const StackedCard = ({ children, index, total, zoomInOnScroll = false, scaleRang
 
 const Index = () => {
   const totalSections = 6;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace("#", "");
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+        // Silently clear hash and query parameters so normal page refresh doesn't trigger scroll redirect
+        window.history.replaceState(null, "", window.location.pathname);
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#050505] text-foreground antialiased">

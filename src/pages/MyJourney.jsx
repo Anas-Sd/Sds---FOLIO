@@ -12,7 +12,12 @@ const MyJourney = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white py-16 px-4 font-sans flex justify-center relative overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className="min-h-screen bg-[#050505] text-white py-16 px-4 font-sans flex justify-center relative overflow-hidden"
+    >
       
       {/* 1. Full-Screen Volumetric Light Beam (Applies across complete background edge-to-edge) */}
       <div 
@@ -139,7 +144,7 @@ const MyJourney = () => {
           })}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default MyJourney;

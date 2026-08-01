@@ -8,6 +8,7 @@ import {
   Heart,
   Briefcase,
   BrainCircuit,
+  Terminal,
 } from "lucide-react";
 
 const episodes = [
@@ -108,6 +109,16 @@ const episodes = [
     punchline: '"Not everything goes as planned… but progress still counts."',
     description: "The deeper you go, the more you realize how much deep it is. In Phase 2 of DSA, I was introduced to advanced topics like LinkedLists, Stacks, Queues, Trees, Graphs, and Dynamic Programming. But with everything going on, I focused on building a strong base instead. I went deep into Linked Lists, Stacks, and Queues, making sure I truly understood them rather than rushing ahead. It wasn’t about covering everything — it was about learning it properly.",
     icon: BrainCircuit,
+    color: 'bg-zinc-900 border border-zinc-800',
+    textColor: "text-zinc-400",
+  },
+  {
+    id: 11,
+    episode: "The Next Level: CollabX",
+    date: "3.2 BTech",
+    punchline: '"Bringing developers into one shared workspace, one keystroke at a time."',
+    description: "After grinding DSA, I wanted to push my engineering boundaries. That led to CollabX — A full-stack workspace where multiple students or developers can jump into rooms, code simultaneously with WebSockets, run code in 4+ languages, and chat seamlessly. Handling live state sync, Spring Boot WebSockets, and sandboxed code execution tested every skill I had. Building CollabX proved how much I had grown as a developer.",
+    icon: Terminal,
     color: 'bg-zinc-900 border border-zinc-800',
     textColor: "text-zinc-400",
   },

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom"
 
 export const Hero = () => {
@@ -18,11 +18,42 @@ export const Hero = () => {
   const animatedTitle = useTypewriter(titles, 80, 40, 2000);
   const [autoHover, setAutoHover] = useState(false);
 
+  const [viewsCount, setViewsCount] = useState(0);
+  const [downloadsCount, setDownloadsCount] = useState(0);
+  const hasIncrementedView = useRef(false);
+
   useEffect(() => {
     setAutoHover(true);
     const timer = setTimeout(() => setAutoHover(false), 2500);
+
+    // Clean up old legacy test keys from localStorage if present
+    localStorage.removeItem("portfolio_profile_views");
+    localStorage.removeItem("portfolio_resume_downloads");
+
+    // Profile Views Counter (Prevents double increment in React StrictMode)
+    if (!hasIncrementedView.current) {
+      hasIncrementedView.current = true;
+      const storedViews = localStorage.getItem("my_portfolio_real_views");
+      const currentViews = storedViews ? parseInt(storedViews, 10) : 0;
+      const newViews = currentViews + 1;
+      localStorage.setItem("my_portfolio_real_views", newViews.toString());
+      setViewsCount(newViews);
+    }
+
+    // Downloads Counter (Starts cleanly from 0)
+    const storedDownloads = localStorage.getItem("my_portfolio_real_downloads");
+    const currentDownloads = storedDownloads ? parseInt(storedDownloads, 10) : 0;
+    setDownloadsCount(currentDownloads);
+
     return () => clearTimeout(timer);
   }, []);
+
+  const handleDownloadClick = () => {
+    const currentDownloads = parseInt(localStorage.getItem("my_portfolio_real_downloads") || "0", 10);
+    const updatedDownloads = currentDownloads + 1;
+    localStorage.setItem("my_portfolio_real_downloads", updatedDownloads.toString());
+    setDownloadsCount(updatedDownloads);
+  };
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -78,6 +109,7 @@ export const Hero = () => {
                   <a
                     href="/SYED_ANAS_RESUME_3_2_5.pdf"
                     download="SYED_ANAS_RESUME_3_2_5.pdf"
+                    onClick={handleDownloadClick}
                     className="flex items-center justify-center px-3 py-1 bg-zinc-900 border-r border-zinc-800 text-white hover:bg-zinc-800 transition-colors"
                   >
                     <Download className="w-4 h-4" />
@@ -107,7 +139,7 @@ export const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4 pt-4 animate-[fade-in_1s_cubic-bezier(0.4,0,0.2,1)_2s_both]">
+            <div className="flex items-center gap-4 pt-4 animate-[fade-in_1s_cubic-bezier(0.4,0,0.2,1)_1.8s_both]">
               <span className="text-sm text-zinc-500">Follow me:</span>
               <a href="https://github.com/Anas-Sd" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800 flex items-center justify-center hover:scale-110 transform transition duration-300">
                 <Github className="w-5 h-5" />
@@ -118,6 +150,51 @@ export const Hero = () => {
               <a href="mailto:portfolio.syedanas@gmail.com" className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800 flex items-center justify-center hover:scale-110 transform transition duration-300">
                 <Mail className="w-5 h-5" />
               </a>
+            </div>
+
+            {/* Live Telemetry Analytics Bar */}
+            <div className="pt-3 animate-[fade-in_1s_cubic-bezier(0.4,0,0.2,1)_2s_both]">
+              <div className="inline-flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md shadow-xl hover:border-zinc-700/80 transition-all duration-300">
+                {/* Live Pulse Header */}
+                <div className="flex items-center gap-2 pr-0 sm:pr-3 sm:border-r sm:border-zinc-800/80">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                    Live Stats
+                  </span>
+                </div>
+
+                {/* Metric 1: Views */}
+                <div className="flex items-center gap-2">
+                  <div className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                    <Eye className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-sm font-bold text-white font-mono">{viewsCount.toLocaleString()}</span>
+                    <span className="text-xs text-zinc-400 font-medium">
+                      {viewsCount === 1 ? 'profile view' : 'profile views'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Divider dot */}
+                <span className="hidden sm:inline text-zinc-700 font-bold">•</span>
+
+                {/* Metric 2: Downloads */}
+                <div className="flex items-center gap-2">
+                  <div className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                    <Download className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-sm font-bold text-white font-mono">{downloadsCount.toLocaleString()}</span>
+                    <span className="text-xs text-zinc-400 font-medium">
+                      {downloadsCount === 1 ? 'download' : 'downloads'}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
