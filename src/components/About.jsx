@@ -69,14 +69,14 @@ export const About = () => {
               </h3>
               <div className="space-y-6 text-zinc-400 leading-relaxed text-base sm:text-lg">
                 <p>
-                  I'm a <strong className="text-white font-semibold">Software Engineer</strong> with a strong foundation in Data Structures &amp; Algorithms. I focus on constructing secure, scalable web systems, optimizing database/backend performance, and designing RESTful APIs.
+                  Software Development Engineer with hands-on experience in Data Structures & Algorithms and strong proficiency in building secure and scalable web applications. Experienced in designing RESTful APIs, optimizing backend performance, and developing secure, production-ready systems.
                 </p>
                 <p>
-                  Currently pursuing my <strong className="text-white font-semibold">B.Tech in Computer Science</strong> at KL University, I build hands-on applications using the MERN stack, secure authentication protocols, and system architecture practices.
+                  Currently pursuing my B.Tech in Computer Science at KL University, I love solving real-world problems by actively building projects using modern technologies, including authentication systems, APIs, and cloud deployment. I strongly believe in continuous learning and consistently upskill myself through hands-on projects, certifications, and problem-solving.
                 </p>
-                <p>
+                {/* <p>
                   Driven by a mindset of constant growth, I consistently expand my skills through challenge-based learning, industry certifications, and collaborative project building.
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -218,12 +218,12 @@ export const About = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* LeetCode */}
+            {/* LeetCode & CodeChef */}
             <div className="p-6 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-700 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] transition-all duration-300 group flex gap-4">
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
-                  Solved <strong className="text-white font-medium">130+ algorithmic problems</strong> on{" "}
+                  Solved <strong className="text-white font-medium">300+ problems</strong> on{" "}
                   <a
                     className="underline text-white hover:text-zinc-300 inline-flex items-center gap-1"
                     href="https://leetcode.com/u/2300032619/"
@@ -232,7 +232,16 @@ export const About = () => {
                   >
                     LeetCode <ExternalLink className="w-3.5 h-3.5" />
                   </a>{" "}
-                  to sharpen logic, data structures, and algorithmic puzzle-solving.
+                  and <strong className="text-white font-medium">500+ problems</strong> on{" "}
+                  <a
+                    className="underline text-white hover:text-zinc-300 inline-flex items-center gap-1"
+                    href="https://www.codechef.com/users/kl_2300032619"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    CodeChef <ExternalLink className="w-3.5 h-3.5" />
+                  </a>{" "}
+                  to strengthen problem-solving skills and algorithmic thinking.
                 </p>
               </div>
             </div>
@@ -261,8 +270,8 @@ export const About = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-400 mt-2 flex-shrink-0 group-hover:bg-white transition-colors" />
               <div>
                 <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
-                  Self-taught and acquired proficiency in Japanese language up to{" "}
-                  <strong className="text-white font-medium">JLPT N3 Level</strong>, showing strong self-motivation and adaptability.
+                  Self-taught and acquired proficiency in Japanese language
+                  , showing strong self-motivation and adaptability.
                 </p>
               </div>
             </div>
