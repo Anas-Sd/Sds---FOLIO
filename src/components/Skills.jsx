@@ -1,7 +1,88 @@
 import { useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Code2, Globe, Database, BookOpen, Wrench, Users, Server, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { Code2, Globe, Database, BookOpen, Wrench, Users, Server, ChevronLeft, ChevronRight, Sparkles, Flower } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+const TiltSkillCard = ({ category, index }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 400, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 400, damping: 25 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["16deg", "-16deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-16deg", "16deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <div
+      className="snap-start flex-shrink-0 w-[300px] sm:w-[360px] py-2"
+      style={{ perspective: "1000px" }}
+    >
+      <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateY,
+          rotateX,
+          transformStyle: "preserve-3d",
+        }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        className="h-full w-full"
+      >
+        <Card className="h-full bg-[#0c0c0f] border border-zinc-800/80 hover:border-zinc-500 rounded-3xl p-6 sm:p-7 transition-all duration-300 hover:shadow-[0_25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-between group">
+          <div>
+            {/* Category Header */}
+            <div className="flex items-center justify-between mb-5 pb-4 border-b border-zinc-900">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center flex-shrink-0 group-hover:border-zinc-500 transition-colors">
+                  <category.icon className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight text-white leading-tight">
+                    {category.title}
+                  </h3>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                    {category.tag}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Skills Pills */}
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <span
+                  key={skillIndex}
+                  className="px-3.5 py-1.5 bg-zinc-950 border border-zinc-800/80 hover:border-zinc-400 rounded-xl text-xs font-medium text-zinc-300 hover:text-white transition-all duration-300"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+    </div>
+  );
+};
 
 export const Skills = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -25,37 +106,43 @@ export const Skills = () => {
       title: "Programming Languages",
       icon: Code2,
       tag: "Core Syntax",
-      skills: ["Java", "SQL", "C", "JavaScript"],
+      skills: ["Java", "SQL", "C"],
     },
     {
       title: "Frontend Technologies",
       icon: Globe,
       tag: "User Experience",
-      skills: ["HTML5", "CSS3", "TailwindCSS", "JavaScript", "React.js"],
+      skills: ["HTML5", "CSS3", "TailwindCSS", "React.js", "Next.js"],
     },
     {
       title: "Backend & Systems",
       icon: Server,
       tag: "Server & APIs",
-      skills: ["Express.js", "Node.js", "SpringBoot", "Auth (JWT)", "RESTful APIs"],
+      skills: ["Express.js", "Node.js", "SpringBoot", "Web Sockets", "Auth (JWT)", "RESTful APIs"],
     },
     {
       title: "Database Systems",
       icon: Database,
       tag: "Persistence",
-      skills: ["PostgreSQL", "MySQL", "MongoDB"],
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Supabase"],
+    },
+    {
+      title: "Devops & Tools",
+      icon: Wrench,
+      tag: "Devops & Tools",
+      skills: ["Git", "GitHub", "Docker", "CICD"],
     },
     {
       title: "Core CS Fundamentals",
       icon: BookOpen,
       tag: "CS Theory",
-      skills: ["DSA", "OOP", "DBMS", "Operating Systems"],
+      skills: ["Data Structures & Algorithms", "Object Oriented Programming", "Database Management Systems"],
     },
     {
-      title: "Tools & Infrastructure",
+      title: "Developer Tools",
       icon: Wrench,
       tag: "Developer Tools",
-      skills: ["Git", "GitHub", "VS Code", "Eclipse", "Postman"],
+      skills: ["Claude", "Gemini", "Antigravity", "GitHub Copilot", "Flow", "Stitch"],
     },
     {
       title: "Soft Skills & Leadership",
@@ -117,7 +204,7 @@ export const Skills = () => {
           </div>
         </div>
 
-        {/* Side-Scrollable Horizontal Track */}
+        {/* Side-Scrollable Horizontal Track with 3D Tilt Hover & Outer Padding */}
         <div
           ref={skillsRef}
           className={`w-full transition-all duration-700 ${
@@ -126,48 +213,14 @@ export const Skills = () => {
         >
           <div
             ref={scrollContainerRef}
-            className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scrollbar-none scroll-smooth w-full"
+            className="flex gap-5 sm:gap-6 overflow-x-auto pb-8 pt-4 px-4 sm:px-6 -mx-4 sm:-mx-6 snap-x snap-mandatory scrollbar-none scroll-smooth w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)]"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
           >
             {skillCategories.map((category, index) => (
-              <Card
-                key={index}
-                className="snap-start flex-shrink-0 w-[300px] sm:w-[360px] bg-[#0c0c0f] border border-zinc-800/80 hover:border-zinc-600 rounded-3xl p-6 sm:p-7 transition-all duration-500 hover:shadow-[0_15px_35px_rgba(0,0,0,0.8)] flex flex-col justify-between group"
-              >
-                <div>
-                  {/* Category Header */}
-                  <div className="flex items-center justify-between mb-5 pb-4 border-b border-zinc-900">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center flex-shrink-0 group-hover:border-zinc-600 transition-colors">
-                        <category.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight text-white leading-tight">
-                          {category.title}
-                        </h3>
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                          {category.tag}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Skills Pills */}
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIndex) => (
-                      <span
-                        key={skillIndex}
-                        className="px-3.5 py-1.5 bg-zinc-950 border border-zinc-800/80 hover:border-zinc-500 rounded-xl text-xs font-medium text-zinc-300 hover:text-white transition-all duration-300"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Card>
+              <TiltSkillCard key={index} category={category} index={index} />
             ))}
           </div>
         </div>
