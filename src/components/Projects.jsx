@@ -21,10 +21,10 @@ const AutoLoopingImageCarousel = ({ images, title }) => {
   const currentImage = images[currentIndex] || images[0];
 
   return (
-    <div className="relative w-full h-full min-h-[300px] sm:min-h-[360px] lg:min-h-[420px] bg-zinc-950/80 rounded-2xl overflow-hidden flex items-center justify-center p-2 sm:p-4 group">
+    <div className="relative w-full h-full min-h-[300px] sm:min-h-[360px] lg:min-h-[420px] bg-zinc-100 dark:bg-zinc-950/80 rounded-2xl overflow-hidden flex items-center justify-center p-2 sm:p-4 group border border-zinc-200 dark:border-zinc-800/80">
       {/* Ambient background dot matrix */}
-      <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-zinc-950 via-transparent to-zinc-900/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#888_1px,transparent_1px)] dark:bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-zinc-200/50 dark:from-zinc-950 via-transparent to-zinc-200/30 dark:to-zinc-900/50 pointer-events-none" />
 
       {/* Looping Image Display */}
       <AnimatePresence mode="wait">
@@ -36,19 +36,19 @@ const AutoLoopingImageCarousel = ({ images, title }) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 max-h-[360px] sm:max-h-[400px] lg:max-h-[300px] w-full h-auto object-contain rounded-xl shadow-2xl transition-all duration-300 group-hover:scale-[1.02]"
+          className="relative z-10 max-h-[360px] sm:max-h-[400px] lg:max-h-[300px] w-full h-auto object-contain rounded-xl shadow-xl dark:shadow-2xl transition-all duration-300 group-hover:scale-[1.02]"
         />
       </AnimatePresence>
 
       {/* Photo Loop Indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-zinc-900/90 backdrop-blur-md px-3 py-1.5 rounded-full">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 shadow-sm">
           {images.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`h-1.5 rounded-full transition-all duration-500 ${
-                idx === currentIndex ? "w-6 bg-white" : "w-1.5 bg-zinc-600 hover:bg-zinc-400"
+                idx === currentIndex ? "w-6 bg-zinc-900 dark:bg-white" : "w-1.5 bg-zinc-300 dark:bg-zinc-600 hover:bg-zinc-500 dark:hover:bg-zinc-400"
               }`}
               aria-label={`Slide ${idx + 1}`}
             />
@@ -57,7 +57,7 @@ const AutoLoopingImageCarousel = ({ images, title }) => {
       )}
 
       {/* Photo Badge */}
-      <div className="absolute top-4 right-4 z-20 text-[10px] uppercase font-mono tracking-widest bg-zinc-900/90 text-zinc-400 px-3 py-1 rounded-full backdrop-blur-md">
+      <div className="absolute top-4 right-4 z-20 text-[10px] uppercase font-mono tracking-widest bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-400 px-3 py-1 rounded-full backdrop-blur-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
         {images.length > 1 ? ` ${currentIndex + 1} / ${images.length}` : "PREVIEW"}
       </div>
     </div>
@@ -195,10 +195,10 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white overflow-hidden flex flex-col justify-center min-h-screen"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden flex flex-col justify-center min-h-screen"
     >
       {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f01f_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f01f_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center">
         
@@ -207,10 +207,10 @@ export const Projects = () => {
           <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-500">
             Featured Works
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mt-1 tracking-tighter uppercase">
-            Selected <span className="text-zinc-400">Projects</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mt-1 tracking-tighter uppercase text-zinc-900 dark:text-white">
+            Selected <span className="text-zinc-600 dark:text-zinc-400">Projects</span>
           </h2>
-          <div className="w-16 h-[2px] bg-zinc-800 mx-auto mt-3" />
+          <div className="w-16 h-[2px] bg-zinc-300 dark:bg-zinc-800 mx-auto mt-3" />
         </div>
 
         {/* Card Frame Wrapper (Attached strictly to project card area!) */}
@@ -227,10 +227,10 @@ export const Projects = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="w-full bg-[#0c0c0f] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.95)] backdrop-blur-2xl relative overflow-hidden"
+              className="w-full bg-[#fcfcfc] dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl dark:shadow-[0_30px_90px_rgba(0,0,0,0.95)] backdrop-blur-2xl relative overflow-hidden"
             >
               {/* Ambient Card Background Glow */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-zinc-800/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-zinc-200/50 dark:bg-zinc-800/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                 
@@ -246,17 +246,17 @@ export const Projects = () => {
                 <div className="lg:col-span-6 space-y-6">
                   
                   {/* Counter & Subtitle Header */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-900 pb-3">
-                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-900 pb-3">
+                    <span className="text-xs font-mono text-zinc-700 dark:text-zinc-400 font-bold uppercase tracking-widest">
                       PROJECT 0{activeProjectIndex + 1} / 0{PROJECTS_DATA.length}
                     </span>
                     <div className="flex items-center gap-2">
                       {currentProject.isFreelance && (
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30">
                           FREELANCE
                         </span>
                       )}
-                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-zinc-900 text-zinc-400">
+                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-800 shadow-xs">
                         {currentProject.subtitle}
                       </span>
                     </div>
@@ -264,14 +264,14 @@ export const Projects = () => {
 
                   {/* Title & Description */}
                   <div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white mb-3">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-zinc-900 dark:text-white mb-3">
                       {currentProject.title === "CollabX" ? (
-                        <>Collab<span className="text-yellow-400">X</span></>
+                        <>Collab<span className="text-yellow-500 dark:text-yellow-400">X</span></>
                       ) : (
                         currentProject.title
                       )}
                     </h3>
-                    <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed font-light">
+                    <p className="text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
                       {currentProject.description}
                     </p>
                   </div>
@@ -281,7 +281,7 @@ export const Projects = () => {
                     {currentProject.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 rounded-full text-xs font-medium bg-zinc-900 text-zinc-300 border border-zinc-800/80"
+                        className="px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-800/80 shadow-xs"
                       >
                         {tag}
                       </span>
@@ -289,9 +289,9 @@ export const Projects = () => {
                   </div>
 
                   {/* Action Buttons with Dedicated Standalone Page Navigation */}
-                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-zinc-900">
+                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-900">
                     {currentProject.Live && (
-                      <Button asChild className="bg-white text-black font-semibold hover:bg-zinc-200 transition-all">
+                      <Button asChild className="bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-sm">
                         <a href={currentProject.Live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                           <ExternalLink className="w-4 h-4" />
                           Live Demo
@@ -300,7 +300,7 @@ export const Projects = () => {
                     )}
 
                     {currentProject.github && (
-                      <Button asChild variant="outline" className="border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-900">
+                      <Button asChild variant="outline" className="border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 shadow-xs">
                         <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                           <Github className="w-4 h-4" />
                           Source Code
@@ -313,13 +313,13 @@ export const Projects = () => {
                         <Button
                           onClick={() => setShowRestrictedModal(true)}
                           variant="secondary"
-                          className="bg-zinc-900 hover:bg-zinc-800 text-amber-400 font-medium border border-amber-500/30 flex items-center gap-2"
+                          className="bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-amber-600 dark:text-amber-400 font-medium border border-amber-500/30 flex items-center gap-2 shadow-xs"
                         >
-                          <Lock className="w-3.5 h-3.5 text-amber-400" />
+                          <Lock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                           Full Case Study
                         </Button>
                       ) : (
-                        <Button asChild variant="secondary" className="bg-zinc-900 hover:bg-zinc-800 text-white font-medium border border-zinc-800">
+                        <Button asChild variant="secondary" className="bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white font-medium border border-zinc-200 dark:border-zinc-800 shadow-xs">
                           <Link to={`/project/${currentProject.id}`} className="flex items-center gap-2">
                             Full Case Study
                             <ArrowRight className="w-4 h-4" />
@@ -343,8 +343,8 @@ export const Projects = () => {
               onClick={() => changeProject(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 idx === activeProjectIndex
-                  ? "w-8 bg-white"
-                  : "w-2 bg-zinc-700 hover:bg-zinc-500"
+                  ? "w-8 bg-zinc-900 dark:bg-white"
+                  : "w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-500 dark:hover:bg-zinc-400"
               }`}
               aria-label={`Go to project ${idx + 1}`}
             />
@@ -355,35 +355,35 @@ export const Projects = () => {
 
       {/* Restricted Case Study Modal */}
       <Dialog open={showRestrictedModal} onOpenChange={setShowRestrictedModal}>
-        <DialogContent className="max-w-md bg-[#0c0c0f] border border-zinc-800 text-white p-6 rounded-2xl shadow-2xl">
+        <DialogContent className="max-w-md bg-white dark:bg-[#0c0c0f] border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white p-6 rounded-2xl shadow-2xl">
           <DialogHeader>
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-400">
+              <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-600 dark:text-amber-400">
                 <Lock className="w-5 h-5" />
               </div>
               <div>
-                <DialogTitle className="text-lg font-extrabold uppercase tracking-tight text-white">
+                <DialogTitle className="text-lg font-extrabold uppercase tracking-tight text-zinc-900 dark:text-white">
                   Restricted Case Study
                 </DialogTitle>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
                   Freelance Commercial Project
                 </span>
               </div>
             </div>
-            <DialogDescription className="text-xs text-zinc-300 font-light leading-relaxed pt-2">
-              Detailed case study documentation, source code, and backend schemas for <strong className="text-white font-semibold">{currentProject.title}</strong> are restricted under a client Non-Disclosure Agreement (NDA). Please use the Live Demo to explore the application's public features.
+            <DialogDescription className="text-xs text-zinc-600 dark:text-zinc-300 font-light leading-relaxed pt-2">
+              Detailed case study documentation, source code, and backend schemas for <strong className="text-zinc-900 dark:text-white font-semibold">{currentProject.title}</strong> are restricted under a client Non-Disclosure Agreement (NDA). Please use the Live Demo to explore the application's public features.
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-end gap-3 pt-4 border-t border-zinc-900">
+          <div className="flex justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-900">
             <Button
               onClick={() => setShowRestrictedModal(false)}
               variant="outline"
-              className="border-zinc-800 text-zinc-300 text-xs hover:bg-zinc-900"
+              className="border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs hover:bg-zinc-100 dark:hover:bg-zinc-900"
             >
               Close
             </Button>
             {currentProject.Live && (
-              <Button asChild className="bg-white text-black font-bold text-xs hover:bg-zinc-200">
+              <Button asChild className="bg-zinc-900 text-white dark:bg-white dark:text-black font-bold text-xs hover:bg-zinc-800 dark:hover:bg-zinc-200">
                 <a href={currentProject.Live} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Launch Live Demo
                 </a>

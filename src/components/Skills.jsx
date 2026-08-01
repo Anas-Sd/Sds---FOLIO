@@ -47,19 +47,19 @@ const TiltSkillCard = ({ category, index }) => {
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className="h-full w-full"
       >
-        <Card className="h-full bg-[#0c0c0f] border border-zinc-800/80 hover:border-zinc-500 rounded-3xl p-6 sm:p-7 transition-all duration-300 hover:shadow-[0_25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-between group">
+        <Card className="h-full bg-[#fcfcfc] dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800/80 hover:border-zinc-500 dark:hover:border-zinc-500 rounded-3xl p-6 sm:p-7 transition-all duration-300 shadow-sm hover:shadow-xl dark:hover:shadow-[0_25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-between group">
           <div>
             {/* Category Header */}
-            <div className="flex items-center justify-between mb-5 pb-4 border-b border-zinc-900">
+            <div className="flex items-center justify-between mb-5 pb-4 border-b border-zinc-200 dark:border-zinc-900">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center flex-shrink-0 group-hover:border-zinc-500 transition-colors">
-                  <category.icon className="w-5 h-5 text-white" />
+                <div className="w-11 h-11 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 flex items-center justify-center flex-shrink-0 group-hover:border-zinc-500 dark:group-hover:border-zinc-500 transition-colors shadow-xs">
+                  <category.icon className="w-5 h-5 text-zinc-900 dark:text-white" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight text-white leading-tight">
+                  <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight text-zinc-900 dark:text-white leading-tight">
                     {category.title}
                   </h3>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-400">
                     {category.tag}
                   </span>
                 </div>
@@ -71,7 +71,7 @@ const TiltSkillCard = ({ category, index }) => {
               {category.skills.map((skill, skillIndex) => (
                 <span
                   key={skillIndex}
-                  className="px-3.5 py-1.5 bg-zinc-950 border border-zinc-800/80 hover:border-zinc-400 rounded-xl text-xs font-medium text-zinc-300 hover:text-white transition-all duration-300"
+                  className="px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800/80 hover:border-zinc-500 rounded-xl text-xs font-semibold text-zinc-800 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all duration-300 shadow-xs"
                 >
                   {skill}
                 </span>
@@ -162,10 +162,10 @@ export const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white overflow-hidden flex flex-col justify-center min-h-screen w-full"
+      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden flex flex-col justify-center min-h-screen w-full"
     >
       {/* Background Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f01f_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f01f_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center">
         
@@ -178,10 +178,10 @@ export const Skills = () => {
         >
           <div className="text-center md:text-left">
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-500 flex items-center justify-center md:justify-start gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-zinc-400" /> Technical Competencies
+              <Sparkles className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" /> Technical Competencies
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mt-1 tracking-tighter uppercase">
-              Skills & <span className="text-zinc-400">Expertise</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mt-1 tracking-tighter uppercase text-zinc-900 dark:text-white">
+              Skills & <span className="text-zinc-600 dark:text-zinc-400">Expertise</span>
             </h2>
           </div>
 
@@ -190,14 +190,14 @@ export const Skills = () => {
             <button
               onClick={scrollLeft}
               aria-label="Scroll left"
-              className="w-12 h-12 rounded-2xl bg-[#0c0c0f] border border-zinc-800 hover:border-zinc-500 hover:bg-zinc-900 flex items-center justify-center text-zinc-400 hover:text-white transition-all shadow-lg active:scale-95"
+              className="w-12 h-12 rounded-2xl bg-white dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800 hover:border-zinc-500 dark:hover:border-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center justify-center text-zinc-800 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all shadow-md active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollRight}
               aria-label="Scroll right"
-              className="w-12 h-12 rounded-2xl bg-[#0c0c0f] border border-zinc-800 hover:border-zinc-500 hover:bg-zinc-900 flex items-center justify-center text-zinc-400 hover:text-white transition-all shadow-lg active:scale-95"
+              className="w-12 h-12 rounded-2xl bg-white dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800 hover:border-zinc-500 dark:hover:border-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center justify-center text-zinc-800 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all shadow-md active:scale-95"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

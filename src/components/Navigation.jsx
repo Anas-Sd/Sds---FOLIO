@@ -113,7 +113,7 @@ export const Navigation = () => {
           initial={{ y: -24, opacity: 0, scale: 0.94 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-1.5 bg-zinc-950/85 backdrop-blur-xl border border-zinc-800/80 rounded-full p-2 shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="flex items-center gap-1.5 bg-white/90 dark:bg-zinc-950/85 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800/80 rounded-full p-2 shadow-lg dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
         >
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
@@ -131,8 +131,8 @@ export const Navigation = () => {
                 className={cn(
                   "flex items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-2.5 sm:px-3 sm:py-2 whitespace-nowrap relative group",
                   isActive
-                    ? "bg-white text-black font-semibold shadow-md"
-                    : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
+                    ? "bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold shadow-md"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900/80"
                 )}
               >
                 <item.icon className="w-4 h-4 flex-shrink-0" />
@@ -154,7 +154,7 @@ export const Navigation = () => {
             );
           })}
 
-          <div className="ml-1 border-l border-zinc-800/80 pl-2">
+          <div className="ml-1 border-l border-zinc-200 dark:border-zinc-800/80 pl-2">
             <ThemeToggle />
           </div>
         </motion.div>

@@ -57,7 +57,7 @@ const StackedCard = ({ children, index, total, heightClass }) => {
           y,
         }}
         className={cn(
-          "w-full bg-[#050505] border-t border-zinc-800/80 shadow-[0_-25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-center",
+          "w-full bg-white dark:bg-[#050505] border-t border-zinc-200 dark:border-zinc-800/80 shadow-md dark:shadow-[0_-25px_50px_rgba(0,0,0,0.9)] flex flex-col justify-center text-zinc-900 dark:text-foreground",
           "relative md:sticky md:top-0 transition-shadow duration-500",
           heightClass ? "h-screen overflow-hidden" : "min-h-screen",
           index > 0 && "rounded-t-[2rem] md:rounded-t-[3.5rem]"
@@ -66,7 +66,7 @@ const StackedCard = ({ children, index, total, heightClass }) => {
         {index > 0 && (
           <motion.div
             style={{ opacity: entryProgress }}
-            className="absolute top-0 inset-x-8 sm:inset-x-24 h-[1px] bg-gradient-to-r from-transparent via-zinc-400/60 to-transparent pointer-events-none z-20 shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+            className="absolute top-0 inset-x-8 sm:inset-x-24 h-[1px] bg-gradient-to-r from-transparent via-zinc-400/60 to-transparent pointer-events-none z-20 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.6)]"
           />
         )}
         <div className="w-full h-full flex flex-col justify-center">
@@ -96,7 +96,7 @@ const Index = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#050505] text-foreground antialiased">
+    <div className="min-h-screen overflow-x-hidden bg-white dark:bg-[#050505] text-zinc-900 dark:text-foreground antialiased">
       <Navigation />
       
       {/* 1. Hero */}
