@@ -1,4 +1,4 @@
-import { Home, BookOpen, Folder, Code, Award, Mail, Menu, Crown } from "lucide-react";
+import { Home, BookOpen, Folder, Code, Award, Mail, Menu, Crown, Github } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
@@ -56,6 +56,7 @@ export const Navigation = () => {
     { id: "about", icon: BookOpen, label: "About" },
     { id: "skills", icon: Code, label: "Skills" },
     { id: "projects", icon: Folder, label: "Projects" },
+    { id: "github", icon: Github, label: "GitHub" },
     { id: "certifications", icon: Award, label: "Certifications" },
     { id: "contact", icon: Mail, label: "Contact" },
     { id: "journey", icon: Crown, label: "My Journey", isPage: true },
@@ -127,7 +128,6 @@ export const Navigation = () => {
                     scrollToSection(item.id);
                   }
                 }}
-                title={item.label}
                 className={cn(
                   "flex items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-2.5 sm:px-3 sm:py-2 whitespace-nowrap relative group",
                   isActive

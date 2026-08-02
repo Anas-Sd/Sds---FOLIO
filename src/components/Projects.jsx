@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ExternalLink, Github, ArrowRight, Lock } from "lucide-react";
+import { ExternalLink, Github, ArrowRight, Lock, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
@@ -112,14 +112,22 @@ export const Projects = () => {
     setActiveProjectIndex(newIndex);
   }, []);
 
-  // Wheel Listener attached STRICTLY to project card container with momentum lock
+  // Wheel Listener attached STRICTLY to project card container for Laptop/Desktop views
   useEffect(() => {
     const el = cardFrameWrapperRef.current;
     if (!el) return;
 
     const handleWheel = (e) => {
+      // Do not intercept wheel/scroll on mobile devices!
+      if (window.innerWidth < 1024) return;
+
+      // Always lock laptop page scrolling when hovering over project card
       e.preventDefault();
       e.stopPropagation();
+
+      const index = activeIndexRef.current;
+      const isDown = e.deltaY > 0;
+      const isUp = e.deltaY < 0;
 
       const now = Date.now();
       if (now - lastTransitionTimeRef.current < 950) {
@@ -127,10 +135,6 @@ export const Projects = () => {
       }
 
       if (Math.abs(e.deltaY) < 12) return;
-
-      const isDown = e.deltaY > 0;
-      const isUp = e.deltaY < 0;
-      const index = activeIndexRef.current;
 
       if (isDown && index < PROJECTS_DATA.length - 1) {
         changeProject(index + 1);
@@ -145,48 +149,52 @@ export const Projects = () => {
     return () => el.removeEventListener("wheel", handleWheel);
   }, [changeProject]);
 
-  // Touch Swipe for Mobile
+  // Touch Swipe for Mobile (Captures HORIZONTAL left/right swipes for switching projects, allows VERTICAL page scrolling)
+  const touchStartX = useRef(0);
   const touchStartY = useRef(0);
+
   const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
+
   const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
+    const diffX = touchStartX.current - touchEndX;
     const diffY = touchStartY.current - touchEndY;
     const index = activeIndexRef.current;
     const now = Date.now();
 
-    if (Math.abs(diffY) > 40 && now - lastTransitionTimeRef.current >= 950) {
-      if (diffY > 0 && index < PROJECTS_DATA.length - 1) {
+    // Strictly trigger project transition ONLY when HORIZONTAL swipe is dominant (> Math.abs(diffY))
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30 && now - lastTransitionTimeRef.current >= 300) {
+      if (diffX > 0 && index < PROJECTS_DATA.length - 1) {
         changeProject(index + 1);
-      } else if (diffY < 0 && index > 0) {
+      } else if (diffX < 0 && index > 0) {
         changeProject(index - 1);
       }
     }
   };
 
-  // Ultra-sleek 3D Fade Backwards Depth Animation
+  // Ultra-sleek 3D Fade Backwards Depth Animation (Optimized for 60fps mobile transitions)
   const cardVariants = {
     enter: {
-      scale: 1.06,
+      scale: 1.04,
       opacity: 0,
-      filter: "blur(4px)",
     },
     center: {
       scale: 1,
       opacity: 1,
-      filter: "blur(0px)",
       transition: {
-        duration: 0.5,
+        duration: 0.35,
         ease: [0.16, 1, 0.3, 1],
       },
     },
     exit: {
-      scale: 0.84,
+      scale: 0.92,
       opacity: 0,
-      filter: "blur(8px)",
       transition: {
-        duration: 0.45,
+        duration: 0.3,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -195,7 +203,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden flex flex-col justify-center min-h-screen"
+      className="relative py-10 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden flex flex-col justify-center min-h-[auto] md:min-h-screen"
     >
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f01f_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f01f_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
@@ -218,7 +226,7 @@ export const Projects = () => {
           ref={cardFrameWrapperRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative w-full max-w-6xl cursor-pointer touch-none"
+          className="relative w-full max-w-6xl cursor-pointer touch-pan-y"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -246,17 +254,26 @@ export const Projects = () => {
                 <div className="lg:col-span-6 space-y-6">
                   
                   {/* Counter & Subtitle Header */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-900 pb-3">
-                    <span className="text-xs font-mono text-zinc-700 dark:text-zinc-400 font-bold uppercase tracking-widest">
+                  <div className="sm:flex items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-900 pb-3">
+                    <span className="text-[0.25cm] ml-3 sm:-ml-3 sm:text-[0.3cm] font-mono text-zinc-700 dark:text-zinc-400 font-bold uppercase tracking-widest">
                       PROJECT 0{activeProjectIndex + 1} / 0{PROJECTS_DATA.length}
                     </span>
                     <div className="flex items-center gap-2">
+                      {currentProject.isOngoing && (
+                        <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                          </span>
+                          ONGOING
+                        </span>
+                      )}
                       {currentProject.isFreelance && (
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                        <span className="hidden sm:inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30">
                           FREELANCE
                         </span>
                       )}
-                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-800 shadow-xs">
+                      <span className="text-xs mt-2 sm:-mt-2 font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-800 shadow-xs">
                         {currentProject.subtitle}
                       </span>
                     </div>
@@ -264,6 +281,24 @@ export const Projects = () => {
 
                   {/* Title & Description */}
                   <div>
+                    {(currentProject.isFreelance || currentProject.isOngoing) && (
+                      <div className="sm:hidden mb-2 flex items-center gap-2">
+                        {currentProject.isOngoing && (
+                          <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            ONGOING
+                          </span>
+                        )}
+                        {currentProject.isFreelance && (
+                          <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                            FREELANCE
+                          </span>
+                        )}
+                      </div>
+                    )}
                     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-zinc-900 dark:text-white mb-3">
                       {currentProject.title === "CollabX" ? (
                         <>Collab<span className="text-yellow-500 dark:text-yellow-400">X</span></>
@@ -335,20 +370,40 @@ export const Projects = () => {
           </AnimatePresence>
         </div>
 
-        {/* Minimalist Dot Indicators (Centered below card) */}
-        <div className="flex items-center justify-center gap-2 mt-6">
-          {PROJECTS_DATA.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => changeProject(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                idx === activeProjectIndex
-                  ? "w-8 bg-zinc-900 dark:bg-white"
-                  : "w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-500 dark:hover:bg-zinc-400"
-              }`}
-              aria-label={`Go to project ${idx + 1}`}
-            />
-          ))}
+        {/* Minimalist Navigation Controls & Dot Indicators (Centered below card) */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mt-6">
+          <button
+            onClick={() => changeProject(activeProjectIndex - 1)}
+            disabled={activeProjectIndex === 0}
+            aria-label="Previous project"
+            className="p-2 rounded-xl bg-[#fcfcfc] dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800 disabled:opacity-25 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-800 dark:text-zinc-200 transition-all shadow-xs active:scale-95"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {PROJECTS_DATA.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => changeProject(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  idx === activeProjectIndex
+                    ? "w-8 bg-zinc-900 dark:bg-white"
+                    : "w-2.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-500 dark:hover:bg-zinc-400"
+                }`}
+                aria-label={`Go to project ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => changeProject(activeProjectIndex + 1)}
+            disabled={activeProjectIndex === PROJECTS_DATA.length - 1}
+            aria-label="Next project"
+            className="p-2 rounded-xl bg-[#fcfcfc] dark:bg-[#0c0c0f] border border-zinc-300 dark:border-zinc-800 disabled:opacity-25 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-800 dark:text-zinc-200 transition-all shadow-xs active:scale-95"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>

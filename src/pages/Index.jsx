@@ -8,6 +8,7 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
+import { GithubSection } from "@/components/Github";
 import { Certifications } from "@/components/Certifications";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -78,7 +79,7 @@ const StackedCard = ({ children, index, total, heightClass }) => {
 };
 
 const Index = () => {
-  const totalSections = 6;
+  const totalSections = 7;
   const location = useLocation();
 
   useEffect(() => {
@@ -119,13 +120,18 @@ const Index = () => {
         <Projects />
       </StackedCard>
 
-      {/* 5. Certifications */}
+      {/* 5. GitHub Activity */}
       <StackedCard index={4} total={totalSections}>
+        <GithubSection />
+      </StackedCard>
+
+      {/* 6. Certifications */}
+      <StackedCard index={5} total={totalSections}>
         <Certifications />
       </StackedCard>
 
-      {/* 6. Contact & Footer */}
-      <StackedCard index={5} total={totalSections}>
+      {/* 7. Contact & Footer */}
+      <StackedCard index={6} total={totalSections}>
         <div className="flex flex-col min-h-screen justify-between">
           <div className="flex-grow flex items-center">
             <Contact />

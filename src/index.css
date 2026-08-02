@@ -136,3 +136,20 @@ All colors MUST be HSL.
     }
   }
 }
+
+/* Force GitHub calendar empty contribution squares to be sleek dark black boxes */
+.react-activity-calendar rect[data-level="0"],
+.react-activity-calendar [data-level="0"] {
+  fill: #161b22 !important;
+}
+
+.react-activity-calendar text {
+  fill: #a1a1aa !important;
+}
+
+/* Custom Pointer Cursor: Hide default browser pointer on desktop */
+@media (pointer: fine) {
+  body, a, button, input, select, textarea, [role="button"], label, .cursor-pointer {
+    cursor: none !important;
+  }
+}

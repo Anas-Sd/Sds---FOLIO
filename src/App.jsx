@@ -17,14 +17,14 @@ import VR_Sidhartha_Hackathon from "./Pdf's/VR_Sidhartha_Hackathon";
 import DTI_CERTIFICATE from "./Pdf's/DTI_CERTIFICATE";
 import MyJourney from "./pages/MyJourney";
 import { ProjectCaseStudy } from "./pages/ProjectCaseStudy";
-
-
+import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <CustomCursor />
       <Toaster />
       <Sonner />
       <BrowserRouter>

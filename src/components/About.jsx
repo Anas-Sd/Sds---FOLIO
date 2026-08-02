@@ -15,10 +15,10 @@ export const About = () => {
   // Smooth entrance animations for About section content
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [0.8, 1]);
   const headerScale = useTransform(scrollYProgress, [0, 0.1], [0.98, 1]);
-  
+
   const leftColY = useTransform(scrollYProgress, [0, 0.2], [20, 0]);
   const leftColOpacity = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
-  
+
   const rightColY = useTransform(scrollYProgress, [0, 0.2], [20, 0]);
   const rightColOpacity = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
 
@@ -32,7 +32,7 @@ export const About = () => {
     <section
       id="about"
       ref={containerRef}
-      className="relative py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden"
+      className="relative py-8 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050505] text-zinc-900 dark:text-white overflow-hidden"
     >
       {/* Subtle grid pattern overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f01f_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f01f_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#3333330f_1px,transparent_1px),linear-gradient(to_bottom,#3333330f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
@@ -57,7 +57,7 @@ export const About = () => {
 
         {/* Split Grid: Bio/Contacts vs Education */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-16">
-          
+
           {/* Left Column: Bio & Minimal Contact Badge stack */}
           <motion.div
             style={{ y: leftColY, opacity: leftColOpacity }}
@@ -69,7 +69,7 @@ export const About = () => {
               </h3>
               <div className="space-y-6 text-zinc-700 dark:text-zinc-300 leading-relaxed text-base sm:text-lg font-normal">
                 <p>
-                  Software Development Engineer with hands-on experience in Data Structures & Algorithms and strong proficiency in building secure and scalable web applications. Experienced in designing RESTful APIs, optimizing backend performance, and developing secure, production-ready systems.
+                  Computer Science Undergraduate with hands-on experience in Data Structures & Algorithms and strong proficiency in building secure and scalable web applications. Experienced in designing RESTful APIs, optimizing backend performance, and developing secure, production-ready systems.
                 </p>
                 <p>
                   Currently pursuing my B.Tech in Computer Science at KL University, I love solving real-world problems by actively building projects using modern technologies, including authentication systems, APIs, and cloud deployment. I strongly believe in continuous learning and consistently upskill myself through hands-on projects, certifications, and problem-solving.
@@ -82,7 +82,7 @@ export const About = () => {
               <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-400 mb-4">
                 Personal Index
               </h4>
-              
+
               {/* Location */}
               <div className="flex items-center gap-4 py-2 border-b border-zinc-200 dark:border-zinc-950">
                 <MapPin className="w-5 h-5 text-zinc-700 dark:text-zinc-400 flex-shrink-0" />

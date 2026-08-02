@@ -4,7 +4,7 @@ export const useActiveSection = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const sections = ["home", "about", "skills", "projects", "certifications", "contact"];
+    const sections = ["home", "about", "skills", "projects", "github", "certifications", "contact"];
 
     const handleScroll = () => {
       const focalPoint = window.innerHeight * 0.4; // 40% from top of screen

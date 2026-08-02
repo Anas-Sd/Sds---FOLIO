@@ -12,7 +12,7 @@ export const PROJECTS_DATA = [
       new URL("@/assets/collabx_pics/COLLABX_CAROUSEL/2.png", import.meta.url).href,
       new URL("@/assets/collabx_pics/COLLABX_CAROUSEL/3.png", import.meta.url).href,
     ],
-    tags: ["Next.js", "Spring Boot", "PostgreSQL", "WebSockets", "Supabase", "Docker", "Railway"],
+    tags: ["Next.js", "Spring Boot", "PostgreSQL", "Docker", "Railway"],
     Live: "https://collabx.vercel.app",
     github: "https://github.com/Anas-Sd/CollabX",
     caseStudy: {
@@ -160,8 +160,9 @@ export const PROJECTS_DATA = [
   {
     id: "sstraders",
     title: "SS TRADERS",
-    subtitle: "Commercial Catalog & Inventory Management",
+    subtitle: "Inventory Management System",
     isFreelance: true,
+    isOngoing: true,
     isRestricted: true,
     description:
       "A custom freelance solution built for a commercial trading enterprise to digitize their physical catalog into an organized A-Z inventory system. Features public catalog browsing and a secure admin panel to add, edit, and update items.",
@@ -169,7 +170,7 @@ export const PROJECTS_DATA = [
       new URL("@/assets/SS_TRADERS_PICS/CAROUSAL/2.png", import.meta.url).href,
       new URL("@/assets/SS_TRADERS_PICS/CAROUSAL/1.png", import.meta.url).href,
     ],
-    tags: ["Freelance", "React", "Supabase", "Cloudinary"],
+    tags: ["Ongoing", "Freelance", "React", "Supabase", "Cloudinary"],
     Live: "https://sstraders1.vercel.app/",
     github: "https://github.com/Anas-Sd/SS-TRADERS",
     caseStudy: {
