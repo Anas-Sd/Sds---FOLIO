@@ -10,49 +10,32 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useGlobalStats } from "@/hooks/useGlobalStats";
 
 export const Hero = () => {
   const titles = ["Software Development Engineer", "Full Stack Developer", "AI Powered Applications"];
   const animatedTitle = useTypewriter(titles, 80, 40, 2000);
   const [autoHover, setAutoHover] = useState(false);
 
-  const [viewsCount, setViewsCount] = useState(0);
-  const [downloadsCount, setDownloadsCount] = useState(0);
-  const hasIncrementedView = useRef(false);
+  const { viewsCount, downloadsCount, incrementDownloads } = useGlobalStats();
 
   useEffect(() => {
     setAutoHover(true);
     const timer = setTimeout(() => setAutoHover(false), 2500);
 
-    // Clean up old legacy test keys from localStorage if present
+    // Clean up old local storage keys
     localStorage.removeItem("portfolio_profile_views");
     localStorage.removeItem("portfolio_resume_downloads");
-
-    // Profile Views Counter (Prevents double increment in React StrictMode)
-    if (!hasIncrementedView.current) {
-      hasIncrementedView.current = true;
-      const storedViews = localStorage.getItem("my_portfolio_real_views");
-      const currentViews = storedViews ? parseInt(storedViews, 10) : 0;
-      const newViews = currentViews + 1;
-      localStorage.setItem("my_portfolio_real_views", newViews.toString());
-      setViewsCount(newViews);
-    }
-
-    // Downloads Counter (Starts cleanly from 0)
-    const storedDownloads = localStorage.getItem("my_portfolio_real_downloads");
-    const currentDownloads = storedDownloads ? parseInt(storedDownloads, 10) : 0;
-    setDownloadsCount(currentDownloads);
+    localStorage.removeItem("my_portfolio_real_views");
+    localStorage.removeItem("my_portfolio_real_downloads");
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleDownloadClick = () => {
-    const currentDownloads = parseInt(localStorage.getItem("my_portfolio_real_downloads") || "0", 10);
-    const updatedDownloads = currentDownloads + 1;
-    localStorage.setItem("my_portfolio_real_downloads", updatedDownloads.toString());
-    setDownloadsCount(updatedDownloads);
+    incrementDownloads();
   };
 
   const scrollToContact = () => {
